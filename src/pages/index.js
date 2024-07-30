@@ -4,8 +4,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import TypingAnimation from '../components/TypingAnimation';
 import Link from 'next/link';
-import ContactModal from '../components/ContactModal'; // Import the ContactModal component
-import HelpMenu from '../components/HelpMenu';
+
+const MAX_MESSAGE_LENGTH = 100; // Maximum length of message preview
+
 const truncateMessage = (message) => {
   return message.length > MAX_MESSAGE_LENGTH ? `${message.substring(0, MAX_MESSAGE_LENGTH)}...` : message;
 };
@@ -210,15 +211,6 @@ export default function Home() {
       setShowScrollButton(false);
     }
   };
- 
-
-  useEffect(() => {
-    const chatContainer = chatContainerRef.current;
-    if (chatContainer) {
-      chatContainer.addEventListener('scroll', handleScroll);
-      return () => chatContainer.removeEventListener('scroll', handleScroll);
-    }
-  }, [chatContainerRef]);
 
 
   return (
@@ -292,7 +284,7 @@ export default function Home() {
             </div>
             
             <div className="flex items-center space-x-4">
-              <Link href="https://github.com/Akshithaa5?tab=repositories" legacyBehavior>
+              <Link href="https://github.com/your-repo" legacyBehavior>
                 <a className="bg-gray-700 text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-600 transition duration-300">
                   <svg
                     className="w-5 h-5"
@@ -418,7 +410,7 @@ export default function Home() {
                   Send
                 </button>
               </div>
-            
+              <ScrollToBottomButton isVisible={showScrollButton} onClick={scrollToBottom} />
             </form>
             <ScrollToBottomButton
         isVisible={showScrollButton}
@@ -448,7 +440,6 @@ export default function Home() {
                   </ul>
                 </div>
               )}
-              
             </div>
             
           </div>
