@@ -4,8 +4,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import TypingAnimation from '../components/TypingAnimation';
 import Link from 'next/link';
-import ContactModal from '../components/ContactModal'; 
-import HelpMenu from '../components/HelpMenu';
+
+const MAX_MESSAGE_LENGTH = 100; // Maximum length of message preview
+
 const truncateMessage = (message) => {
   return message.length > MAX_MESSAGE_LENGTH ? `${message.substring(0, MAX_MESSAGE_LENGTH)}...` : message;
 };
@@ -38,10 +39,10 @@ export default function Home() {
   const [menuIndex, setMenuIndex] = useState(null);
   const [isHelpMenuOpen, setIsHelpMenuOpen] = useState(false);
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const chatContainerRef = useRef(null); 
+  const chatContainerRef = useRef(null); // Reference for chat container
 
   useEffect(() => {
-   
+    // Load saved chats from local storage
     const savedChatsFromStorage = localStorage.getItem('savedChats');
     if (savedChatsFromStorage) {
       setSavedChats(JSON.parse(savedChatsFromStorage));
@@ -49,11 +50,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-  
+    // Automatically scroll to the bottom when new messages are added
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
-  }, [chatLog]); 
+  }, [chatLog]); // Run this effect whenever chatLog changes
 
   const toggleHelpMenu = () => {
     setIsHelpMenuOpen(!isHelpMenuOpen);
@@ -210,15 +211,6 @@ export default function Home() {
       setShowScrollButton(false);
     }
   };
- 
-
-  useEffect(() => {
-    const chatContainer = chatContainerRef.current;
-    if (chatContainer) {
-      chatContainer.addEventListener('scroll', handleScroll);
-      return () => chatContainer.removeEventListener('scroll', handleScroll);
-    }
-  }, [chatContainerRef]);
 
 
   return (
@@ -229,7 +221,7 @@ export default function Home() {
         <h2 className="text-xl font-bold mb-4">Saved Chats</h2>
         <div
           className="overflow-y-auto flex-grow max-h-[calc(100vh-4rem)]"
-          ref={chatContainerRef} 
+          ref={chatContainerRef} // Attach the reference here
         >
           {savedChats.length === 0 ? (
             <p className="text-gray-400 text-center">No saved chats</p>
@@ -292,7 +284,7 @@ export default function Home() {
             </div>
             
             <div className="flex items-center space-x-4">
-              <Link href="https://github.com/Akshithaa5?tab=repositories" legacyBehavior>
+              <Link href="https://github.com/your-repo" legacyBehavior>
                 <a className="bg-gray-700 text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-600 transition duration-300">
                   <svg
                     className="w-5 h-5"
@@ -338,7 +330,7 @@ export default function Home() {
             </div>
           )}
           
-         
+          {/* Chat Messages */}
             {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Chat Log */}
@@ -410,7 +402,7 @@ export default function Home() {
                 />
                 <button
                   type="submit"
-                  disabled={!inputValue.trim()} 
+                  disabled={!inputValue.trim()} // Disable button if inputValue is empty or just whitespace
                   className={`bg-purple-500 rounded-full px-4 py-2 text-white font-semibold focus:outline-none transition-colors duration-300 ${
                     !inputValue.trim() ? 'opacity-50 cursor-not-allowed' : 'hover:bg-purple-600'
                   }`}
@@ -418,7 +410,7 @@ export default function Home() {
                   Send
                 </button>
               </div>
-            
+              <ScrollToBottomButton isVisible={showScrollButton} onClick={scrollToBottom} />
             </form>
             <ScrollToBottomButton
         isVisible={showScrollButton}
@@ -448,7 +440,6 @@ export default function Home() {
                   </ul>
                 </div>
               )}
-              
             </div>
             
           </div>
