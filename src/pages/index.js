@@ -284,7 +284,7 @@ export default function Home() {
             </div>
             
             <div className="flex items-center space-x-4">
-              <Link href="https://github.com/your-repo" legacyBehavior>
+              <Link href="https://github.com/Akshithaa5?tab=repositories" legacyBehavior>
                 <a className="bg-gray-700 text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-600 transition duration-300">
                   <svg
                     className="w-5 h-5"
