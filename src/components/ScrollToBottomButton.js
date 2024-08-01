@@ -10,7 +10,7 @@ const ScrollToBottomButton = ({ isVisible }) => {
     isVisible && (
       <button
         onClick={scrollToBottom}
-        className="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 focus:outline-none transition-colors duration-300"
+        className="fixed bottom-8 center-2 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 focus:outline-none transition-colors duration-300"
         aria-label="Scroll to bottom"
       >
         <svg
