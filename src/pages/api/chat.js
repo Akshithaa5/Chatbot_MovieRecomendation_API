@@ -33,6 +33,11 @@ export default async function handler(req, res) {
 
   const { message } = req.body;
 
+  // Debug logging for environment variables
+  console.log('OMDB API Key:', process.env.OMDB_API_KEY);
+  console.log('RapidAPI Key:', process.env.RAPIDAPI_KEY);
+  console.log('RapidAPI Host:', process.env.RAPIDAPI_HOST);
+
   try {
     const omdbApiKey = process.env.OMDB_API_KEY;
     
@@ -85,3 +90,4 @@ export default async function handler(req, res) {
     res.status(500).json({ error: 'An error occurred while processing your request' });
   }
 }
+
